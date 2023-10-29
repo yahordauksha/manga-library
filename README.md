@@ -13,7 +13,6 @@
 <br />
 <div align="center">
   <a href="[https://github.com/yahordauksha/manga-library]">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Manga Library</h3>
@@ -26,7 +25,7 @@
     <br />
     <a href="https://github.com/yahordauksha/manga-library">View Demo</a>
     ·
-    <a href="hhttps://github.com/yahordauksha/manga-library/issues">Report Bug</a>
+    <a href="https://github.com/yahordauksha/manga-library/issues">Report Bug</a>
     ·
     <a href="https://github.com/yahordauksha/manga-library/issues">Request Feature</a>
   </p>
@@ -68,12 +67,13 @@
 Welcome to the Manga Library, a project created to simplify your manga reading experience, and save time. Manga library allows you to access manga content from various websites in one place, making it convenient to read and tracj updates. 
 
 Key Features:
-
-Multi-Source Integration: The app allows to read manga from 3 websites(create an issue to include more websites).
-User-Friendly Interface: Simple and intuitive user interface makes it enjoyable to read.
-Search and Discover: Find new manga titles, search for specific series, and uncover hidden gems.
-Multi User application: An app allows any number of user accounts to be created, each of them having a separate library. 
-Real time manga update: An app uses agregation techinques to get new updates in specified periouds of time.
+<ul>
+  <li>Multi-Source Integration: The app allows you to read manga from 3 websites (create an issue to include more websites).</li>
+  <li>User-Friendly Interface: Simple and intuitive user interface makes it enjoyable to read.</li>
+  <li>Search and Discover: Find new manga titles, search for specific series, and uncover hidden gems.</li>
+  <li>Multi User application: The app allows any number of user accounts to be created, each of them having a separate library.</li>
+  <li>Real-time manga updates: The app uses aggregation techniques to get new updates at specified intervals.</li>
+</ul>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -81,14 +81,14 @@ Real time manga update: An app uses agregation techinques to get new updates in 
 
 ### Built With
 
-* [![Django][Django]][[https://www.djangoproject.com/]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+* [![Django](Django)][Django-url]
+* [![React](React.js)][React-url]
+* [![Vue](Vue.js)][Vue-url]
+* [![Angular](Angular.io)][Angular-url]
+* [![Svelte](Svelte.dev)][Svelte-url]
+* [![Laravel](Laravel.com)][Laravel-url]
+* [![Bootstrap](Bootstrap.com)][Bootstrap-url]
+* [![JQuery](JQuery.com)][JQuery-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
