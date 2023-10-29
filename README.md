@@ -80,15 +80,17 @@ Key Features:
 
 
 ### Built With
+<ul>
+  <li><a href="https://www.djangoproject.com/">Django</a></li>
+  <li><a href="https://www.sqlite.org/">SQLite</a></li>
+  <li><a href="https://getbootstrap.com/">Bootstrap</a></li>
+  <li><a href="https://www.crummy.com/software/BeautifulSoup/">BeautifulSoup</a></li>
+  <li><a href="https://docs.celeryproject.org/en/latest/">Celery</a></li>
+  <li><a href="https://redis.io/">Redis</a></li>
+  <li><a href="https://www.docker.com/">Docker</a></li>
+</ul>
 
-* [![Django](Django)][Django-url]
-* [![React](React.js)][React-url]
-* [![Vue](Vue.js)][Vue-url]
-* [![Angular](Angular.io)][Angular-url]
-* [![Svelte](Svelte.dev)][Svelte-url]
-* [![Laravel](Laravel.com)][Laravel-url]
-* [![Bootstrap](Bootstrap.com)][Bootstrap-url]
-* [![JQuery](JQuery.com)][JQuery-url]
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
