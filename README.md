@@ -75,6 +75,13 @@ Key Features:
   <li>Real-time manga updates: The app uses aggregation techniques to get new updates at specified intervals.</li>
 </ul>
 
+Accepted manga websites:
+<ul>
+  <li><a href="https://mangatx.com/">Mangatx</a></li>
+  <li><a href="https://mangadex.org/">Mangadex</a></li>
+  <li><a href="https://mangakakalot.com/">Mangakakalot</a></li>
+ 
+</ul>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
