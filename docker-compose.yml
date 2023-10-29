@@ -1,0 +1,25 @@
+version: "3"
+services:
+  web:
+    build: .
+    container_name: manga_web
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+    environment:
+      - DJANGO_SETTINGS_MODULE=manga_project.settings
+
+  redis:
+    image: "redis:latest"
+    container_name: manga_redis
+
+  celery:
+    build: .
+    container_name: manga_celery
+    command: celery -A manga_project worker --loglevel=info
+    depends_on:
+      - redis
+    environment:
+      - DJANGO_SETTINGS_MODULE=manga_project.settings

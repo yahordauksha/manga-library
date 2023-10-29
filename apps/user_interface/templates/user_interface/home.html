@@ -1,0 +1,45 @@
+{% extends 'user_interface/main.html' %}
+
+
+{% block content %}
+<div>
+    {% if user.is_authenticated %}
+    <div>
+        <div class="container">
+            <h1 class="display-5 text-center">Home</h1>
+            <hr>
+            <div class="row">
+                {% for manga in mangas %}
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="{% url 'manga' manga.title %}" class="text-decoration-none">{{ manga.title }}</a></h5>
+                                <div class="text-center">
+                                    <img src="{{ manga.preview_img }}" class="img-fluid rounded mx-auto d-block" alt="{{ manga.title }} Preview">
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between">
+                                    {% if manga.last_view_chapter %}
+                                        <a href="{% url 'chapter' manga.title manga.last_view_chapter %}" class="btn btn-primary btn-sm">Your last chapter</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div>
+        Login for manga to show up here
+    </div>
+        
+    
+    {% endif %}
+
+    
+    
+</div>
+
+{% endblock content %}

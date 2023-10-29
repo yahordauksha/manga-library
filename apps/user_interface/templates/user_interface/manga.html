@@ -1,0 +1,216 @@
+{% extends 'user_interface/main.html' %}
+
+
+{% block content %}
+<style>
+    .custom-text-color{
+        color: DarkGray; 
+    }
+
+    .chapter-list{
+        border-top: 20px solid rgba(0, 0, 0, 0);
+    }
+    .chapter-list .list-group-item:nth-child(n+11) {
+        display: none;
+    }
+    .rounded {
+    border-radius: 0.25rem; /* You can adjust the border-radius value as needed */
+    }
+    .show-buttons {
+        border-top: 10px solid rgba(0, 0, 0, 0);
+    }
+    .comments-container {
+        border-top: 10px solid rgba(0, 0, 0, 0);
+    }
+    .comments {
+        width: 100%;
+    }
+    .comment-input {
+        border-bottom: 10px solid rgba(0, 0, 0, 0);
+    }
+    .card {
+        width: 100%;
+        /* border-top: 10px solid rgba(0, 0, 0, 0); */
+    }
+    .card-container {
+        border-top: 10px solid rgba(0, 0, 0, 0);
+    }
+    .button-settings {
+        border-top: 10px solid rgba(0, 0, 0, 0);
+    }
+</style>
+
+<div>
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <h1>{{ manga.title }}</h1>
+                <hr style="border-top: 2px solid #000;">
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <img src="{{ manga.preview_img }}" class="img-fluid rounded" alt="{{ manga.title }} Preview">
+            </div>
+            <div class="col-md-8">
+                <div class="d-flex justify-content-between">
+                    <div class="col-md-8">
+                        <div>
+                            <p class="lead mb-0">Rating: {{ manga.rating }}</p>
+                        </div>
+                        <div>
+                            <p class="lead mb-0">Last Read Chapter: {{ history.last_view_chapter.number }}</p>
+                        </div>
+                        <div>
+                            <p class="lead mb-0">Author: {{ manga.author }}</p>
+                        </div>
+                        <div>
+                            <p class="lead mb-0">Status: {{ manga.status }}</p>
+                        </div>
+                        <div>
+                            <p class="lead mb-0">Tags:
+                                {% for tag in manga.tag.all %}
+                                    {{ tag.tag }}
+                                    {% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="settings">
+            <hr style="border-top: 2px solid #000;">
+            <div class="form-check form-switch">
+                <label class="form-check-label" for="toggle-switch">Follow the updates of this manga?</label>
+                <input class="form-check-input" type="checkbox" id="toggle-switch" data-manga-pk="{{ manga.pk }}" {% if follow_updates %}checked{% endif %}>
+            </div>
+            <form method="POST" action="">
+                <div class="button-settings">
+                    {% csrf_token %}
+                    <button class="btn btn-primary" type="submit" id="reset-last-chapter">Reset last chapter</button>
+                    <input type="hidden" name="value" value="reset-last-chapter">
+                </div>
+            </form>
+            <hr style="border-top: 2px solid #000;">
+        </div>
+    </div>
+</div>
+
+<div class="chapter-list">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Chapter List</h2>
+                <div class="list-group">
+                    {% for chapter in chapters %}
+                        {% if chapter.id <= history.last_view_chapter.id %}
+                            <a href="{% url 'chapter' manga.title chapter.pk %}" class="list-group-item list-group-item-action custom-text-color">
+                                <div class="d-flex justify-content-between">
+                                    <div>{{ chapter.title }}</div>
+                                    <div>{{ chapter.date }}</div>
+                                </div>
+                            </a>
+                        {% else %}
+                            <a href="{% url 'chapter' manga.title chapter.pk %}" class="list-group-item list-group-item-action">
+                                <div class="d-flex justify-content-between">
+                                    <div>{{ chapter.title }}</div>
+                                    <div>{{ chapter.date }}</div>
+                                </div>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                
+                <div class="show-buttons">
+                    <div class="d-flex justify-content-center">
+                        <button id="show-more-button" class="btn btn-primary">Show More</button>
+                        <button id="show-less-button" class="btn btn-primary" style="display: none;">Show Less</button>
+                    </div>
+                </div>
+                <hr style="border-top: 2px solid #000;">
+            </div>
+        </div>
+    </div>
+</div>
+
+ 
+
+
+<script>
+
+    // Toggle switch thing
+    document.addEventListener("DOMContentLoaded", function () {
+        const toggleSwitch = document.getElementById("toggle-switch");
+        const mangaPk = toggleSwitch.dataset.mangaPk;
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+
+        toggleSwitch.addEventListener("change", async () => {
+            const isChecked = toggleSwitch.checked;
+            console.log("Is Checked:", isChecked);
+
+            try {
+                const response = await fetch(`http://127.0.0.1:8000/update_manga_follow_status/${mangaPk}/`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": csrfToken,
+                    },
+                    body: JSON.stringify({ follow_updates: isChecked }),
+                });
+
+                if (response.status === 200) {
+                    // Successfully updated in the database
+                    const data = await response.json();
+                    // You can handle any further UI updates here
+                } else {
+                    // Handle error
+                    console.error("Failed to update follow status.");
+
+                    // Display the error message from the response if available
+                    try {
+                        const errorData = await response.json();
+                        if (errorData.error) {
+                            console.error("Error Message:", errorData.error);
+                        }
+                    } catch (error) {
+                        console.error("Error parsing error response:", error);
+                    }
+                }
+            } catch (error) {
+                console.error("Error during update:", error);
+            }
+        });
+    });
+
+    // Show more/less buttons
+    document.addEventListener('DOMContentLoaded', function () {
+        const chapterList = document.querySelector('.chapter-list');
+        const showMoreButton = document.querySelector('#show-more-button');
+        const showLessButton = document.querySelector('#show-less-button');
+        const hiddenItems = Array.from(chapterList.querySelectorAll('.list-group-item:nth-child(n+11)'));
+
+        showMoreButton.addEventListener('click', function () {
+            hiddenItems.forEach(function (item) {
+            item.style.display = 'block';
+            });
+            showMoreButton.style.display = 'none';
+            showLessButton.style.display = 'block';
+        });
+
+        showLessButton.addEventListener('click', function () {
+            hiddenItems.forEach(function (item) {
+            item.style.display = 'none';
+            });
+            showMoreButton.style.display = 'block';
+            showLessButton.style.display = 'none';
+        });
+    });
+
+</script>
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,105 @@
+{% extends 'user_interface/main.html' %}
+
+
+{% block content %}
+<style>
+    .image-container img {
+        display: block; 
+        margin: 0 auto; 
+        max-width: 100%;
+        width: 65%; 
+    }
+    .comments-container {
+        border-top: 10px solid rgba(0, 0, 0, 0);
+    }
+    .comments {
+        width: 100%;
+    }
+    .comment-input {
+        border-bottom: 10px solid rgba(0, 0, 0, 0);
+    }
+    .card {
+        width: 100%;
+        /* border-top: 10px solid rgba(0, 0, 0, 0); */
+    }
+    .card-container {
+        border-top: 10px solid rgba(0, 0, 0, 0);
+    }
+</style>
+
+<div>
+    <div>
+        <h2><a href="{% url 'manga' manga.title %}" class="text-decoration-none">{{ manga.title }}</a></h2>
+        <h4>{{ chapter.title }}</h4>
+        <hr>
+    </div>
+
+    <div>
+        <input type="range" class="form-range" id="image-size-slider" min="30" max="100" step="0.2">
+        <div class="d-flex justify-content-between mt-2">
+
+            {% if previous_chapter %}
+            <a href="{% url 'chapter' manga.title previous_chapter.pk %}" class="btn btn-primary">Previous</a>
+            {% else %}
+            <a href="{% url 'manga' manga.title %}" class="btn btn-primary">Manga page</a>
+            {% endif %}
+
+            {% if next_chapter %}
+            <a href="{% url 'chapter' manga.title next_chapter.pk %}" class="btn btn-primary">Next</a>
+            {% else %}
+            <a href="{% url 'manga' manga.title %}" class="btn btn-primary">Manga page</a>
+            {% endif %}
+        </div>
+
+
+    </div>
+    <div class="image-container">
+        
+        
+        {% for image in images %}
+            <img src="{{ image }}" class="image">
+        {% endfor %}
+    </div>
+    <div>
+        
+        <div class="d-flex justify-content-between mt-2">
+
+            {% if previous_chapter %}
+            <a href="{% url 'chapter' manga.title previous_chapter.pk %}" class="btn btn-primary">Previous</a>
+            {% else %}
+            <a href="{% url 'manga' manga.title %}" class="btn btn-primary">Manga page</a>
+            {% endif %}
+
+            {% if next_chapter %}
+            <a href="{% url 'chapter' manga.title next_chapter.pk %}" class="btn btn-primary">Next</a>
+            {% else %}
+            <a href="{% url 'manga' manga.title %}" class="btn btn-primary">Manga page</a>
+            {% endif %}
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+<script>
+    // Get the range input element and all images
+    const imageSizeSlider = document.getElementById("image-size-slider");
+    const images = document.querySelectorAll(".image");
+
+    // Add an event listener to the range input
+    imageSizeSlider.addEventListener("input", function () {
+        const imageSize = this.value + "%";
+        // Update the style of all images with the selected width
+        images.forEach((image) => {
+            image.style.width = imageSize;
+        });
+    });
+</script>
+
+{% endblock content %}

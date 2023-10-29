@@ -1,0 +1,154 @@
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Manga</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'library' %}">Library</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'settings' %}">Settings</a>
+                </li>
+
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Add manga
+                    </button>
+                <li/>
+
+              
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Add manga</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form method="POST" action="">
+                                <div class="modal-body">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <input type="url" name="{{ form.url.name }}" id="{{ form.url.id_for_label }}" class="form-control" placeholder="Manga URL" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="hidden" name="value" value="add_manga">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Add</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                <li class="nav-item">
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        <input type="hidden" name="value" value="refresh_mangas">
+                        <button type="submit" class="btn btn-primary mx-2">
+                            Refresh updates
+                        </button>
+                    </form>
+                </li>
+
+            </ul>
+            <div class="d-flex">
+                <form class="d-flex me-2" method="GET" action="{% url 'library' %}">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+
+
+                {% if request.user.is_authenticated %}
+                <a class="btn btn-outline-success" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                <a class="btn btn-outline-success" href="{% url 'login' %}">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- 
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid ">
+        <a class="navbar-brand" href="/">Manga</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'library' %}">Library</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'settings' %}">Settings</a>
+                </li>
+
+                {% if request.user.is_authenticated %}
+                
+                <li class="nav-item">
+                    <button type="button" class="btn btn-primary btn-add-manga" data-bs-toggle="modal" data-bs-target="#addMangaModal">
+                        Add manga
+                    </button>
+                </li>
+
+                
+                <div class="modal fade" id="addMangaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Add manga</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form method="POST" action="">
+                                <div class="modal-body">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <input type="url" name="{{ form.url.name }}" id="{{ form.url.id_for_label }}" class="form-control" placeholder="Manga URL" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="hidden" name="value" value="add_manga">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Add</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+               
+                <li class="nav-item">
+                    <form method="POST" action="">
+                        <input type="hidden" name="value" value="refresh_mangas">
+                        <button type="submit" class="btn btn-primary mx-2">Refresh updates</button>
+                    </form>
+                </li>
+                {% endif %}
+
+            </ul>
+            <div class="ms-auto d-flex">
+                <form class="d-flex me-2" method="GET" action="{% url 'library' %}">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                {% if request.user.is_authenticated %}
+                <a class="btn btn-outline-success" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                <a class="btn btn-outline-success" href="{% url 'login' %}">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav> -->
