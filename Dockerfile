@@ -19,6 +19,7 @@ EXPOSE 8000
 
 # Create a start script to run both Django and Celery
 RUN echo '#!/bin/sh' > start.sh
+RUN echo 'pipenv run python manage.py migrate' >> start.sh
 RUN echo 'pipenv run python manage.py runserver 0.0.0.0:8000 &' >> start.sh
 RUN echo 'pipenv run celery -A manga_project worker --loglevel=info' >> start.sh
 RUN chmod +x start.sh

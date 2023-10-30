@@ -11,4 +11,4 @@ app.config_from_object("django.conf:settings", namespace="CELERY")
 
 app.autodiscover_tasks()
 
-app.conf.broker_url = "redis://manga_redis:6379/0"
+app.conf.broker_url = "redis://local_host:6379/0"
