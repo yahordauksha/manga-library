@@ -106,33 +106,23 @@ Accepted manga websites:
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+The project is deployed using Docker so that it can be run on any OS. 
+
+You can see the instructions on how to download Docker using the following link: <a href="https://docs.docker.com/get-docker/">Docker installation instructions</a>.
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+The guide to start up the app:
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repository
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/yahordauksha/manga-library.git
    ```
-3. Install NPM packages
+2. Start the Docker image
    ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+   docker-compose up -d
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
